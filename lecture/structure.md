@@ -487,7 +487,110 @@ uptime
 
 ---
 
-## Slide 17: Cloud Credits
+## Slide 17: Docker / Compose / Portainer
+
+### Display
+
+```text
+docker compose
+
+app
+db
+redis
+worker
+nginx
+```
+
+### Text
+
+Docker packages an app with its runtime. Docker Compose runs multiple services together on one machine. This is useful when a project has a backend, database, cache, worker, and reverse proxy.
+
+Common small-server stack:
+
+```yaml
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+
+  db:
+    image: postgres:16
+
+  redis:
+    image: redis:7
+```
+
+Useful options:
+
+```text
+Docker Compose     -> simple multi-service setup
+Portainer          -> web UI for Docker management
+Dokku              -> small Heroku-like PaaS on your VPS
+CapRover           -> self-hosted app platform
+Coolify            -> self-hosted alternative to Vercel/Heroku
+```
+
+Kubernetes note:
+
+```text
+Kubernetes is powerful, but usually not worth it for small-medium projects.
+Use it when you really need orchestration across many servers.
+```
+
+---
+
+## Slide 18: Nginx
+
+### Display
+
+```text
+nginx
+
+80 / 443
+  -> app:3000
+  -> api:8000
+```
+
+### Text
+
+Nginx is commonly used as a web server and reverse proxy. It receives public traffic and forwards it to the right internal service.
+
+Typical jobs:
+
+```text
+serve static files
+reverse proxy to backend
+route domains/subdomains
+terminate HTTPS
+compress responses
+basic rate limiting
+```
+
+Mental model:
+
+```text
+browser -> nginx -> app container
+```
+
+Example:
+
+```nginx
+server {
+  listen 80;
+  server_name example.com;
+
+  location / {
+    proxy_pass http://localhost:3000;
+  }
+}
+```
+
+In many beginner platforms, Vercel/Railway/Render hide this layer. On a VPS, you often manage it yourself.
+
+---
+
+## Slide 19: Cloud Credits
 
 ### Display
 
@@ -516,7 +619,7 @@ Always check billing limits, alerts, auto-scaling, and unused resources. Cloud p
 
 ---
 
-## Slide 18: AWS / Azure / Google Cloud
+## Slide 20: AWS / Azure / Google Cloud
 
 ### Display
 
@@ -548,7 +651,7 @@ Do not use complex cloud just to look serious.
 
 ---
 
-## Slide 19: Secrets
+## Slide 21: Secrets
 
 ### Display
 
@@ -583,7 +686,7 @@ configure secrets
 
 ---
 
-## Slide 20: Rollback And Logs
+## Slide 22: Rollback And Logs
 
 ### Display
 
@@ -615,7 +718,7 @@ If this breaks, how do I go back in 5 minutes?
 
 ---
 
-## Slide 21: Live Demo Flow
+## Slide 23: Live Demo Flow
 
 ### Display
 
@@ -649,7 +752,7 @@ Demo steps:
 
 ---
 
-## Slide 22: Final Checklist
+## Slide 24: Final Checklist
 
 ### Display
 
