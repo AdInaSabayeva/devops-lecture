@@ -17,13 +17,13 @@ decision:
   cron/job/worker    -> railway/render
   simple docker app  -> railway/render
 
-plain version:
+why it matters:
   use when your app needs a backend or database
 ```
 
 ### Text
 
-Railway and Render are good when the app needs more than a frontend. They are common choices for APIs, full-stack MVPs, databases, cron jobs, and simple Docker deployments.
+Railway and Render are good when the app needs more than a frontend. They are common choices for APIs, full-stack MVPs, databases, cron jobs, and Docker deployments that need managed hosting.
 
 Decision:
 

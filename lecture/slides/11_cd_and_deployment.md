@@ -9,7 +9,7 @@ CI:
 CD:
   ships the accepted change
 
-plain version:
+meaning:
   CI = test before trust
   CD = put trusted version online
 

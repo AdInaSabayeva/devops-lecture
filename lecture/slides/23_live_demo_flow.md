@@ -18,7 +18,7 @@ demo target:
   one visible deploy
   one rollback explanation
 
-plain version:
+why it matters:
   show the safety process, not a big feature
 ```
 

@@ -14,7 +14,7 @@ devops pipeline:
 
 no pipeline = random shipping
 
-plain version:
+user-facing version:
   make change
   save checkpoint
   robot checks it
@@ -24,6 +24,6 @@ plain version:
 
 ### Text
 
-DevOps is the repeatable process around shipping software. For non-CS students, frame it like logistics: version control tracks the package, CI checks the package, deployment delivers it, and logs are the delivery report.
+DevOps is the repeatable process around shipping software to people who need it to work. For non-CS students, frame it like logistics: version control tracks the package, CI checks the package, deployment delivers it, and logs tell you whether delivery succeeded.
 
 ---

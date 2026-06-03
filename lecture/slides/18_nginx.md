@@ -5,7 +5,7 @@
 ```text
 nginx
 
-plain version:
+meaning:
   traffic controller for your server
 
 public internet:

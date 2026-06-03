@@ -17,7 +17,7 @@ example:
   npm run build
   npm run start
 
-plain version:
+meaning:
   build = prepare app
   start = run app
   domain = website address

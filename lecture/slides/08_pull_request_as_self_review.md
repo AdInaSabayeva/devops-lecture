@@ -5,7 +5,7 @@
 ```text
 PR = inspection gate
 
-plain version:
+why it matters:
   "show me what changed before I accept it"
 
 PR shows:

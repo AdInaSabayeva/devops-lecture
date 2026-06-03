@@ -99,20 +99,21 @@ final slides = checklist / incident response style
 
 Every technical slide should include at least one of:
 
-- `plain version`
+- `meaning`
+- `why it matters`
 - `translation`
 - `mental model`
 - a concrete example
 - a small command snippet
 
-Do not remove technical terms. Define them near first use.
+Do not remove technical terms. Define them near first use, and connect them to what changes for users or operators.
 
 Example treatment:
 
 ```text
 CI = robot checker
 
-plain version:
+meaning:
   github runs commands to check your app
 ```
 
@@ -268,7 +269,7 @@ Use for:
 Layout:
 
 ```text
-left  = concept / plain version
+left  = concept / user impact
 right = workflow / code / decision
 ```
 

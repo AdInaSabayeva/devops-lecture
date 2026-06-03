@@ -5,7 +5,7 @@
 ```text
 code != secrets
 
-plain version:
+meaning:
   secrets are passwords for your app
 
 DATABASE_URL

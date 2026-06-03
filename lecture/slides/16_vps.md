@@ -5,7 +5,7 @@
 ```text
 VPS = remote linux machine
 
-plain version:
+meaning:
   a rented computer that is always online
 
 you get:

@@ -18,14 +18,14 @@ hosts:
   netlify
   vercel
 
-plain version:
+why it matters:
   no server code running
   just files served very fast
 ```
 
 ### Text
 
-Static sites are the simplest deployment model. The app is built into files, then a platform serves those files from a CDN. For non-CS students, describe it as uploading finished pages instead of running a live application server.
+Static sites are a strong deployment model when the user experience does not require server-side logic. The app is built into files, then a platform serves those files from a CDN. For non-CS students, describe it as publishing finished pages instead of running a live application server.
 
 Common options:
 
@@ -61,7 +61,7 @@ server-side business logic
 Good mental model:
 
 ```text
-static site = cheapest + simplest + fastest
+static site = fast, stable, and low-ops when it fits
 ```
 
 ---

@@ -18,13 +18,14 @@ not ideal for:
   long-running workers
   custom server ops
 
-plain version:
-  easiest "connect github and get a URL" option
+why it matters:
+  fast previews for frontend changes
+  simple production releases when the app fits
 ```
 
 ### Text
 
-Vercel is usually the easiest option for frontend-heavy projects: Next.js, React, landing pages, portfolios, static sites, and simple serverless routes.
+Vercel is usually a strong option for frontend-heavy projects: Next.js, React, landing pages, portfolios, static sites, and focused serverless routes.
 
 Where it is enough:
 

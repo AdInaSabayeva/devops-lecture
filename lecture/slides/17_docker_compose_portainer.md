@@ -5,7 +5,7 @@
 ```text
 docker compose
 
-plain version:
+meaning:
   run several app parts together
 
 one server, many services:

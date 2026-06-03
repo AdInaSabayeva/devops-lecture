@@ -5,7 +5,7 @@
 ```text
 deploy broke?
 
-plain version:
+first response:
   first understand, then undo
 
 1. read logs

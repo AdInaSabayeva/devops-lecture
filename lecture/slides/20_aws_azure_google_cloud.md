@@ -5,8 +5,8 @@
 ```text
 aws / azure / gcp
 
-plain version:
-  giant cloud platforms for serious scale
+why it matters:
+  cloud platforms for scale, controls, and managed services
 
 pros:
   scalable
@@ -29,7 +29,7 @@ AWS, Azure, and Google Cloud are worth learning, but they are not always the rig
 For incubator projects:
 
 ```text
-start simple:
+start with the smallest platform that serves users well:
   vercel / railway / render / vps
 
 move to cloud when:
