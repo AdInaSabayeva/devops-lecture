@@ -324,7 +324,63 @@ How do I rollback?
 
 ---
 
-## Slide 13: Vercel
+## Slide 13: Static Site Generation
+
+### Display
+
+```text
+static site
+
+build once
+serve files
+
+html / css / js
+```
+
+### Text
+
+Static sites are the simplest deployment model. The app is built into files, then a platform serves those files from a CDN. There is no always-running backend server.
+
+Common options:
+
+```text
+GitHub Pages
+Cloudflare Pages
+Netlify
+Vercel
+Render Static Sites
+```
+
+Use static hosting for:
+
+```text
+landing pages
+portfolios
+documentation
+blogs
+frontend-only demos
+client-side React/Vue/Svelte apps
+```
+
+Not enough when you need:
+
+```text
+backend API
+database writes
+auth server
+background jobs
+server-side business logic
+```
+
+Good mental model:
+
+```text
+static site = cheapest + simplest + fastest
+```
+
+---
+
+## Slide 14: Vercel
 
 ### Display
 
@@ -362,7 +418,7 @@ heavy background jobs
 
 ---
 
-## Slide 14: Railway / Render
+## Slide 15: Railway / Render
 
 ### Display
 
@@ -393,7 +449,7 @@ For most incubator projects, Vercel, Railway, or Render is enough.
 
 ---
 
-## Slide 15: VPS
+## Slide 16: VPS
 
 ### Display
 
@@ -431,7 +487,7 @@ uptime
 
 ---
 
-## Slide 16: Cloud Credits
+## Slide 17: Cloud Credits
 
 ### Display
 
@@ -460,7 +516,7 @@ Always check billing limits, alerts, auto-scaling, and unused resources. Cloud p
 
 ---
 
-## Slide 17: AWS / Azure / Google Cloud
+## Slide 18: AWS / Azure / Google Cloud
 
 ### Display
 
@@ -492,7 +548,7 @@ Do not use complex cloud just to look serious.
 
 ---
 
-## Slide 18: Secrets
+## Slide 19: Secrets
 
 ### Display
 
@@ -527,7 +583,7 @@ configure secrets
 
 ---
 
-## Slide 19: Rollback And Logs
+## Slide 20: Rollback And Logs
 
 ### Display
 
@@ -559,7 +615,7 @@ If this breaks, how do I go back in 5 minutes?
 
 ---
 
-## Slide 20: Live Demo Flow
+## Slide 21: Live Demo Flow
 
 ### Display
 
@@ -593,7 +649,7 @@ Demo steps:
 
 ---
 
-## Slide 21: Final Checklist
+## Slide 22: Final Checklist
 
 ### Display
 
@@ -617,4 +673,3 @@ Final takeaway:
 you can vibe code
 but do not vibe deploy
 ```
-
