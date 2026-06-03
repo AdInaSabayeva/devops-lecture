@@ -2,78 +2,167 @@
 
 ## Project
 
-This repository contains a React-based lecture presentation for:
+This repository contains a lecture presentation for:
 
 ```text
 From Vibe Code to Live Product
 ```
 
-The deck teaches beginner and non-coder incubator students how DevOps, Git workflow, CI/CD, GitHub Actions, deployment, logs, and rollback help them safely ship AI-generated projects.
+The deck teaches school/university incubator students how to safely ship AI-generated projects using Git, CI/CD, GitHub Actions, deployment platforms, VPS basics, Docker, Nginx, secrets, logs, and rollback.
 
-The visual direction should feel like a focused terminal session inside Vim: technical, calm, legible, and a little nostalgic. It should not feel like a corporate slide deck, SaaS landing page, or generic gradient-heavy AI presentation.
+Important audience constraint:
+
+```text
+some students are non-CS
+most students are AI-agent-heavy solo builders
+```
+
+The design should be technical enough to feel real, but clear enough that a non-CS student can follow the story.
 
 ## Core Aesthetic
 
-Use a terminal + Vim style built around:
+Use a **terminal + Vim + deployment console** visual system.
 
-- Gruvbox dark palette
-- JetBrains Mono typography
-- Vim statusline and command-line details
-- terminal panes, prompts, diffs, logs, CI output, and YAML snippets
-- restrained motion that feels like typing, cursor movement, terminal output, and pane changes
+The deck should feel like a guided tour through a real development environment:
 
-The deck should look like someone is teaching from a real development environment, not decorating slides with fake code.
+```text
+editor buffer
+git diff
+ci log
+deployment dashboard
+server console
+rollback checklist
+```
 
-## Audience Fit
+Avoid corporate startup slides, generic SaaS gradients, decorative blobs, and fake 3D dashboards.
 
-The audience is mostly students, beginner coders, and AI-agent-heavy builders. The design must be visually technical without becoming intimidating.
+The vibe:
 
-Priorities:
+```text
+calm
+technical
+readable
+slightly nostalgic
+not intimidating
+```
 
-- Make every concept scannable from the back of a room.
-- Keep code snippets short and high contrast.
-- Use terminal metaphors to explain process, not to show off complexity.
-- Favor concrete workflow diagrams over abstract DevOps graphics.
-- Treat the presenter as a guide through a controlled release process.
+## Content Model
+
+Each slide in `lecture/structure.md` has:
+
+```text
+## Slide N: Title
+
+### Display
+visible slide content
+
+### Text
+speaker notes / explanation
+```
+
+Build rule:
+
+```text
+Display = rendered on the slide
+Text    = presenter notes, not visible by default
+```
+
+The design should render `Display` as the primary slide content. `Text` can be shown in presenter mode, exported notes, or a side panel during development.
+
+## Deck Structure
+
+Current deck size:
+
+```text
+24 slides
+```
+
+Visual pacing:
+
+```text
+1-5    problem + mental model
+6-12   git / pr / ci / cd / deployment basics
+13-20  hosting and infrastructure choices
+21-24  secrets / rollback / demo / final checklist
+```
+
+Design implication:
+
+```text
+early slides = more translations and mental models
+middle slides = code/workflow focused
+platform slides = decision matrix style
+final slides = checklist / incident response style
+```
+
+## Non-CS Readability Rule
+
+Every technical slide should include at least one of:
+
+- `plain version`
+- `translation`
+- `mental model`
+- a concrete example
+- a small command snippet
+
+Do not remove technical terms. Define them near first use.
+
+Example treatment:
+
+```text
+CI = robot checker
+
+plain version:
+  github runs commands to check your app
+```
 
 ## Typography
 
-Primary font:
+Use one strong monospace family for the whole deck.
+
+Preferred:
 
 ```css
-font-family: "JetBrains Mono", "JetBrainsMono Nerd Font", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+font-family:
+  "JetBrains Mono",
+  "JetBrainsMono Nerd Font",
+  "IBM Plex Mono",
+  "Fira Code",
+  ui-monospace,
+  SFMono-Regular,
+  Menlo,
+  Consolas,
+  monospace;
 ```
-
-Use JetBrains Mono for all text, including headings. The monospaced typography is part of the concept.
 
 Recommended scale:
 
 ```css
---text-xs: 0.75rem;
---text-sm: 0.875rem;
+--text-xs: 0.72rem;
+--text-sm: 0.86rem;
 --text-md: 1rem;
 --text-lg: 1.25rem;
---text-xl: 1.75rem;
---text-2xl: 2.5rem;
---text-3xl: 3.75rem;
+--text-xl: 1.7rem;
+--text-2xl: 2.45rem;
+--text-3xl: 3.5rem;
 ```
 
-Guidelines:
+Rules:
 
-- Use normal letter spacing.
-- Do not use negative letter spacing.
-- Use font weight changes sparingly: regular, medium, bold.
-- Headings can use lowercase terminal phrasing when appropriate, such as `git status`, `ci checks`, or `deploy`.
-- Avoid huge paragraphs. Break ideas into short command-like blocks.
+- Use monospace because the lecture is about workflows, commands, and systems.
+- Do not use tiny code text; projector readability matters more than fitting everything.
+- Headings can be lowercase terminal labels: `git`, `ci`, `deploy`, `rollback`.
+- Use font weight sparingly: regular for content, bold/medium for active line or status.
+- Keep line length short. Prefer stacked command blocks over paragraphs.
 
 ## Color System
 
-Use Gruvbox dark as the base.
+Use Gruvbox dark as the base palette.
 
 ```css
 :root {
-  --bg0: #282828;
   --bg0-hard: #1d2021;
+  --bg0: #282828;
   --bg0-soft: #32302f;
   --bg1: #3c3836;
   --bg2: #504945;
@@ -93,8 +182,6 @@ Use Gruvbox dark as the base.
   --yellow-bright: #fabd2f;
   --blue: #458588;
   --blue-bright: #83a598;
-  --purple: #b16286;
-  --purple-bright: #d3869b;
   --aqua: #689d6a;
   --aqua-bright: #8ec07c;
   --orange: #d65d0e;
@@ -102,183 +189,272 @@ Use Gruvbox dark as the base.
 }
 ```
 
-Usage:
-
-- Backgrounds: `--bg0-hard`, `--bg0`, `--bg0-soft`
-- Main text: `--fg1`
-- Muted text: `--fg3` or `--fg4`
-- Positive/pass: `--green-bright`
-- Warning/manual approval: `--yellow-bright`
-- Failure/error: `--red-bright`
-- Links, branches, commands: `--blue-bright`
-- Prompts and active cursor: `--orange-bright`
-
-Do not add unrelated accent colors. The palette should stay recognizably Gruvbox.
-
-## Global Layout
-
-Each slide should feel like one of these terminal states:
-
-- full-screen Vim buffer
-- split Vim panes
-- terminal command output
-- Git diff view
-- CI log view
-- deployment dashboard rendered as terminal text
-- statusline summary
-
-Use a persistent frame:
+Semantic usage:
 
 ```text
-┌────────────────────────────────────────────────────────────┐
-│ slide-name.md                         │
-├────────────────────────────────────────────────────────────┤
-│ slide content                                               │
-├────────────────────────────────────────────────────────────┤
-│ NORMAL  slide 04/38  main  +ci  12:42                      │
-└────────────────────────────────────────────────────────────┘
+background       -> bg0-hard / bg0
+panel            -> bg0-soft / bg1
+border           -> bg2 / bg3
+main text        -> fg1
+muted text       -> fg3
+commands         -> blue-bright
+active cursor    -> orange-bright
+success/pass     -> green-bright
+warning/manual   -> yellow-bright
+failure/error    -> red-bright
 ```
 
-The frame does not need literal box drawing on every slide, but the visual structure should imply it:
+Do not introduce extra accent palettes. No purple gradient theme.
 
-- top bar with file name or current module
-- main content area
-- bottom Vim statusline
-- optional command prompt row for key takeaways
+## Global Slide Frame
 
-## Slide Composition
+Each slide should feel like a buffer inside a development tool.
 
-Use a small set of repeatable slide templates.
-
-### Title Slide
-
-Looks like opening Vim on the lecture file.
-
-Elements:
-
-- large title as file heading
-- subtitle as terminal comment
-- blinking block cursor after the title or command
-- bottom statusline showing `NORMAL`, `main`, and `lecture/structure.md`
-
-Example:
+Recommended frame:
 
 ```text
-# From Vibe Code to Live Product█
-
-" DevOps, Git workflow, CI/CD, GitHub Actions, and deployment
-" for AI-assisted builders
+┌ lecture/structure.md ─ slide 06/24 ─ main ───────────────┐
+│                                                          │
+│  slide content                                            │
+│                                                          │
+├──────────────────────────────────────────────────────────┤
+│ NORMAL  branch:feature/login  ci:pending  deploy:staging │
+└──────────────────────────────────────────────────────────┘
 ```
 
-### Concept Slide
+Implementation can use normal CSS borders instead of literal box drawing.
 
-For definitions like DevOps, Git, CI, CD, deployment, rollback.
+Persistent UI:
+
+- top bar: slide title, file name, slide count
+- main pane: `Display` content
+- bottom statusline: mode, branch, CI/deploy state, key concept
+- optional command prompt row for the slide takeaway
+
+## Slide Templates
+
+Use a small set of reusable templates.
+
+### Terminal Buffer
+
+Use for:
+
+- title
+- real problem
+- DevOps pipeline
+- deployment checklist
+- final checklist
 
 Layout:
-
-- left pane: simple definition
-- right pane: concrete terminal model or process flow
-- bottom command row: the single sentence students should remember
-
-### Workflow Slide
-
-For Git workflow, PR workflow, demo plan, and team rules.
-
-Layout:
-
-- sequential command-style steps
-- active step highlighted in orange or yellow
-- passed steps marked green
-- blocked/failing steps marked red
-
-Example:
 
 ```text
-$ git checkout -b feature/add-login
-$ ai-agent edit --scope frontend
-$ git diff
-$ npm test
-$ gh pr create
+top bar
+large monospace block
+bottom statusline
 ```
 
-### Code Slide
+Best for slides that already contain clean `text` blocks.
 
-For YAML, environment variables, prompts, and rules.
+### Split Pane
 
-Layout:
+Use for:
 
-- code editor pane with line numbers
-- syntax colors from Gruvbox
-- short annotations in a side gutter
-- avoid more than 12 visible lines unless the slide is specifically about reading a workflow file
-
-### Comparison Slide
-
-For bad prompt vs better prompt, CI vs CD, Vercel vs Railway vs Render.
+- AI safety loop
+- Git concepts
+- CI/CD definitions
+- Vercel / Railway / Render decisions
+- AWS/Azure/GCP tradeoffs
 
 Layout:
 
-- two or three Vim splits
-- labels in statusline-style tabs
-- red/yellow/green status indicators
-- no decorative cards
+```text
+left  = concept / plain version
+right = workflow / code / decision
+```
 
-### Checklist Slide
+Keep the split obvious with a 1px border and Vim-style pane title.
 
-For student checklist and minimal team rules.
+### Code Editor
+
+Use for:
+
+- GitHub Actions YAML
+- Docker Compose
+- Nginx config
+- Git commands
 
 Layout:
 
-- terminal checklist with `[ ]` and `[x]`
-- active command prompt at the bottom
-- use green for completed safety rules, yellow for manual decisions
+```text
+line numbers
+code content
+short gutter annotations
+statusline
+```
 
-## Visual Details
+Code should rarely exceed 14 visible lines. If it does, emphasize only the important lines.
+
+### Decision Matrix
+
+Use for:
+
+- static site generation
+- Vercel
+- Railway / Render
+- VPS
+- cloud platforms
+
+Layout:
+
+```text
+platform      enough for              not enough for
+vercel        frontend MVP            custom server ops
+railway       api + db                enterprise infra
+vps           control                 no-maintenance deploy
+```
+
+Use `PASS`, `WARN`, and `AVOID` labels instead of relying only on color.
+
+### Incident Console
+
+Use for:
+
+- logs
+- rollback
+- production failure examples
+
+Layout:
+
+```text
+error output
+diagnosis command
+rollback command
+health check
+```
+
+Make failure states visible but not visually chaotic.
+
+## Slide-Specific Build Notes
+
+Use this mapping when implementing the deck:
+
+```text
+01 title                    -> Terminal Buffer, large title
+02 real problem             -> Incident Console
+03 your new role            -> Split Pane
+04 devops pipeline          -> Workflow Diagram
+05 ai safety loop           -> Workflow Diagram
+06 git time machine         -> Code Editor + glossary
+07 branches                 -> Git graph / command block
+08 pull request             -> PR inspection screen
+09 ci                       -> CI log view
+10 github actions           -> Code Editor
+11 cd and deployment        -> Split Pane
+12 deployment checklist     -> Checklist
+13 static site generation   -> Pipeline + platform list
+14 vercel                   -> Decision Matrix
+15 railway/render           -> Decision Matrix
+16 vps                      -> Server Console
+17 docker/compose           -> Code Editor + service map
+18 nginx                    -> Reverse proxy diagram + config
+19 cloud credits            -> Warning checklist
+20 aws/azure/gcp            -> Tradeoff matrix
+21 secrets                  -> Redacted env file
+22 rollback/logs            -> Incident Console
+23 live demo flow           -> Workflow Diagram
+24 final checklist          -> Checklist
+```
+
+## Visual Language
 
 Use:
 
-- 1px borders in `--bg2` or `--bg3`
 - hard rectangular geometry
-- 0 to 4px border radius only
-- subtle scanline or grain texture if it does not reduce readability
-- terminal cursor, caret, and selected-line states
-- line numbers for code-like sections
+- 1px borders
+- 0-4px border radius
+- selected-line highlight
+- terminal cursor
 - Vim mode labels: `NORMAL`, `INSERT`, `VISUAL`, `COMMAND`
-- branch labels such as `main`, `feature/add-login`, and `deploy`
-- CI badges rendered as text, not glossy pills
+- branch labels: `main`, `feature/login`, `deploy/staging`
+- status badges rendered as text: `PASS`, `FAIL`, `WARN`
+- subtle grain or scanline texture only if readability stays high
 
 Avoid:
 
-- rounded marketing cards
 - glassmorphism
-- purple gradients
-- decorative blobs
+- glossy cards
+- rounded marketing UI
 - stock illustrations
-- fake 3D dashboards
-- oversized hero sections after the title slide
-- long paragraphs centered on a blank background
+- emoji-heavy slides
+- huge centered paragraphs
+- excessive animations
+- decorative Kubernetes/cloud logos as the main visual
+
+## Diagram Style
+
+Prefer ASCII/system diagrams over decorative illustrations.
+
+Good:
+
+```text
+browser
+  -> nginx :443
+  -> app :3000
+  -> db :5432
+```
+
+Good:
+
+```text
+AI edit -> git diff -> CI PASS -> deploy preview -> merge
+```
+
+Avoid abstract arrows with vague labels like:
+
+```text
+innovation -> acceleration -> transformation
+```
+
+## Code Snippet Treatment
+
+Code snippets should feel real and useful.
+
+Rules:
+
+- Show line numbers for YAML, Docker Compose, and Nginx.
+- Use syntax highlighting from the Gruvbox palette.
+- Highlight 1-3 important lines per slide.
+- Avoid screenshots of code; render code as text.
+- Add short annotations outside the code block, not long comments inside it.
+
+Example annotation style:
+
+```text
+03 on: pull_request       # when workflow runs
+10 run: npm test          # robot checker
+```
 
 ## Motion
 
-Motion should be minimal and purposeful.
+Motion should feel like a terminal, not a web landing page.
 
-Good motion:
+Allowed:
 
 - cursor blink
-- line-by-line terminal output
+- command typed in once
+- line-by-line output reveal
 - active pane focus change
-- statusline update
-- checkmark changing from pending to passed
+- status changing from `PENDING` to `PASS`
 - failed command briefly flashing red
-- slide transition that resembles switching Vim buffers
+- slide transition like switching Vim buffers
 
 Avoid:
 
-- bouncing elements
-- parallax decoration
-- spinning icons
-- heavy page-load choreography
-- motion that delays reading the content
+- bouncing cards
+- parallax
+- spinning logos
+- heavy staggered hero animations
+- motion that delays reading
 
 Respect reduced motion:
 
@@ -294,11 +470,12 @@ Respect reduced motion:
 
 ## React Component Direction
 
-Recommended component names:
+Recommended components:
 
 ```text
 Deck
 Slide
+PresenterNotes
 TerminalFrame
 VimTopBar
 VimStatusLine
@@ -307,69 +484,36 @@ CodeBlock
 CommandLine
 DiffView
 WorkflowSteps
-ComparisonSplit
+DecisionMatrix
 Checklist
+IncidentConsole
+ServerMap
 ```
 
-Keep content and presentation separate:
+Content/presentation separation:
 
-- `lecture/structure.md` should remain the source for lecture content.
-- React slide data can be generated from Markdown or manually mapped from the structure.
-- Visual components should be reusable across slides.
-- Avoid hard-coding one-off layouts unless a slide genuinely needs a special composition.
-
-## Content Treatment
-
-Make key ideas appear as terminal output or Vim command messages.
-
-Examples:
-
-```text
-:set main=deployable
-:check ci
-:deploy --platform vercel
-:rollback HEAD~1
-```
-
-Use shell prompts for actions:
-
-```text
-$ git status
-$ git diff
-$ npm run build
-$ gh pr create
-```
-
-Use comments for speaker-like explanation:
-
-```text
-" AI can generate code fast.
-" DevOps decides what is trusted and shipped.
-```
-
-Use error output for failure examples:
-
-```text
-error: build failed
-hint: check changed files before asking AI to fix everything
-```
+- `lecture/structure.md` is the content source.
+- `Display` becomes visible slide content.
+- `Text` becomes presenter notes.
+- Components should be reusable and driven by slide metadata where possible.
+- Avoid one-off slide code unless the layout is genuinely unique.
 
 ## Accessibility
 
 Requirements:
 
-- Maintain strong contrast between text and background.
-- Keep code font sizes large enough for projection.
-- Do not rely on color alone; pair status colors with text labels like `PASS`, `FAIL`, `WARN`.
-- Use semantic React structure where possible.
-- Ensure keyboard navigation works for presenter controls.
-- Avoid blinking effects that are too fast or distracting.
+- Strong contrast on projector screens.
+- Code font should remain readable from the back of a room.
+- Do not rely on color alone; pair with text labels like `PASS`, `FAIL`, `WARN`.
+- Keep technical terms paired with plain-language translation.
+- Use semantic HTML where possible.
+- Support keyboard navigation.
+- Avoid fast blinking or distracting animations.
+- Presenter notes should be available for students who need explanation after the lecture.
 
-## Implementation Notes
+## Implementation Defaults
 
-Load JetBrains Mono through a local font file if possible. If using a hosted source, include a fallback stack and make sure the deck remains usable without network access.
-
-Suggested CSS defaults:
+Suggested CSS base:
 
 ```css
 html,
@@ -379,7 +523,16 @@ body,
   margin: 0;
   background: var(--bg0-hard);
   color: var(--fg1);
-  font-family: "JetBrains Mono", "JetBrainsMono Nerd Font", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-family:
+    "JetBrains Mono",
+    "JetBrainsMono Nerd Font",
+    "IBM Plex Mono",
+    "Fira Code",
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    Consolas,
+    monospace;
 }
 
 * {
@@ -387,24 +540,41 @@ body,
 }
 ```
 
-Use CSS variables for theme values so the palette can be adjusted once.
+Recommended slide sizing:
 
-## Design Success Criteria
+```css
+.slide {
+  width: 100vw;
+  height: 100vh;
+  padding: clamp(24px, 4vw, 64px);
+}
 
-The presentation is successful if:
+.terminal-frame {
+  width: 100%;
+  height: 100%;
+  border: 1px solid var(--bg3);
+  background: var(--bg0);
+}
+```
 
-- screenshots are immediately recognizable as terminal/Vim inspired
-- the deck stays readable on projector screens
-- students can follow the process flow without knowing DevOps jargon
-- code examples feel real and useful
-- every slide reinforces the core mental model:
+## Success Criteria
+
+The deck succeeds if:
+
+- non-CS students understand the first-pass meaning of every major term
+- technical students still see real commands, workflows, and deployment concepts
+- every slide can be scanned quickly
+- code snippets look like real development artifacts
+- the deck feels like a guided terminal session, not a generic DevOps pitch
+- the final mental model is clear:
 
 ```text
 AI writes code.
 Git tracks code.
-Pull requests inspect code.
+PR inspects code.
 CI checks code.
-CD deploys code.
+Deployment puts it online.
 Logs explain what happened.
 Rollback saves the release.
 ```
+

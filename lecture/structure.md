@@ -7,6 +7,7 @@ Style:
 - minimalistic
 - nerdy and technical
 - low jargon at first, precise terms after
+- friendly to non-CS students
 - slides show little text
 - speaker text explains the idea
 - code snippets are allowed when they clarify the workflow
@@ -34,11 +35,15 @@ goal:
   ship faster
   break less
   rollback when needed
+
+translation:
+  deploy = put online
+  observe = check what happened
 ```
 
 ### Text
 
-This lecture is about the path from "AI generated my app" to "real users can use it." We are not trying to become full DevOps engineers today. We are learning enough process to stop AI-generated projects from turning into chaos.
+This lecture is about the path from "AI generated my app" to "real users can use it." Some students may not have a computer science background, so define terms before using them deeply. We are not trying to become full DevOps engineers today. We are learning enough process to stop AI-generated projects from turning into chaos.
 
 ---
 
@@ -59,6 +64,11 @@ production:
   500 error
   no logs checked
   unknown deployed version
+
+translation:
+  local = your laptop
+  production = real users
+  500 = server crashed
 ```
 
 ### Text
@@ -81,6 +91,10 @@ responsibilities:
   run checks
   deploy
   rollback
+
+plain version:
+  decide what goes online
+  know how to undo it
 ```
 
 ### Text
@@ -104,11 +118,18 @@ devops pipeline:
     -> logs / metrics
 
 no pipeline = random shipping
+
+plain version:
+  make change
+  save checkpoint
+  robot checks it
+  publish it
+  watch for errors
 ```
 
 ### Text
 
-DevOps is the repeatable process around shipping software. Git tracks the change. CI verifies the change. Deployment makes it live. Logs tell us what happened after release.
+DevOps is the repeatable process around shipping software. For non-CS students, frame it like logistics: version control tracks the package, CI checks the package, deployment delivers it, and logs are the delivery report.
 
 ---
 
@@ -128,6 +149,10 @@ safe AI loop:
 
 anti-pattern:
   "rewrite the whole app"
+
+why:
+  small change = easy to inspect
+  huge change  = hard to trust
 ```
 
 ### Text
@@ -156,6 +181,9 @@ branch  = experiment
 diff    = what changed
 revert  = undo safely
 
+mental model:
+  git = save slots for code
+
 $ git status
 $ git diff
 $ git commit -m "add login page"
@@ -163,7 +191,7 @@ $ git commit -m "add login page"
 
 ### Text
 
-For AI users, Git is not optional. Without Git, AI edits are just mysterious file changes. With Git, every AI change becomes inspectable. The most important command concept is `diff`: what changed since the last checkpoint?
+For AI users, Git is not optional. Explain Git as checkpoints before introducing commands. Without Git, AI edits are just mysterious file changes. With Git, every AI change becomes inspectable. The most important command concept is `diff`: what changed since the last checkpoint?
 
 Useful commands:
 
@@ -183,6 +211,10 @@ git commit -m "add login page"
 ```text
 main = stable
 branch = experiment
+
+mental model:
+  main   = official version
+  branch = sandbox
 
 $ git switch -c feature/login
 # AI edits here
@@ -215,6 +247,9 @@ git commit -am "add login"
 ```text
 PR = inspection gate
 
+plain version:
+  "show me what changed before I accept it"
+
 PR shows:
   changed files
   CI result
@@ -245,6 +280,9 @@ If the change matters, use a PR.
 ```text
 CI = robot checker
 
+plain version:
+  github runs commands to check your app
+
 on every push / PR:
   install dependencies
   lint
@@ -259,7 +297,7 @@ minimum:
 
 ### Text
 
-Continuous Integration runs checks automatically when code changes. CI does not guarantee the app is perfect, but it catches obvious failures before deployment.
+Continuous Integration runs checks automatically when code changes. For non-CS students, call it a robot quality-control gate. CI does not guarantee the app is perfect, but it catches obvious failures before deployment.
 
 Minimum checks:
 
@@ -338,6 +376,10 @@ CI:
 CD:
   ships the accepted change
 
+plain version:
+  CI = test before trust
+  CD = put trusted version online
+
 delivery:
   human approves production
 
@@ -376,6 +418,12 @@ deployment checklist:
 example:
   npm run build
   npm run start
+
+plain version:
+  build = prepare app
+  start = run app
+  domain = website address
+  logs = error history
 ```
 
 ### Text
@@ -413,11 +461,15 @@ hosts:
   cloudflare pages
   netlify
   vercel
+
+plain version:
+  no server code running
+  just files served very fast
 ```
 
 ### Text
 
-Static sites are the simplest deployment model. The app is built into files, then a platform serves those files from a CDN. There is no always-running backend server.
+Static sites are the simplest deployment model. The app is built into files, then a platform serves those files from a CDN. For non-CS students, describe it as uploading finished pages instead of running a live application server.
 
 Common options:
 
@@ -477,6 +529,9 @@ merge main -> production
 not ideal for:
   long-running workers
   custom server ops
+
+plain version:
+  easiest "connect github and get a URL" option
 ```
 
 ### Text
@@ -521,6 +576,9 @@ decision:
   api + database     -> railway/render
   cron/job/worker    -> railway/render
   simple docker app  -> railway/render
+
+plain version:
+  use when your app needs a backend or database
 ```
 
 ### Text
@@ -547,6 +605,9 @@ For most incubator projects, Vercel, Railway, or Render is enough.
 ```text
 VPS = remote linux machine
 
+plain version:
+  a rented computer that is always online
+
 you get:
   ssh access
   root/admin control
@@ -566,7 +627,7 @@ you maintain:
 
 ### Text
 
-A VPS is a rented server on the internet. You can install a web server, backend app, database, Docker, workers, monitoring, and deployment scripts.
+A VPS is a rented server on the internet. It is like renting a computer that stays on in a data center. You can install a web server, backend app, database, Docker, workers, monitoring, and deployment scripts.
 
 Use a VPS when you need:
 
@@ -598,6 +659,9 @@ uptime
 ```text
 docker compose
 
+plain version:
+  run several app parts together
+
 one server, many services:
 
   app     -> :3000
@@ -613,7 +677,7 @@ tools:
 
 ### Text
 
-Docker packages an app with its runtime. Docker Compose runs multiple services together on one machine. This is useful when a project has a backend, database, cache, worker, and reverse proxy.
+Docker packages an app with its runtime. For non-CS students, frame it as a shipping box for software. Docker Compose runs multiple boxes together on one machine. This is useful when a project has a backend, database, cache, worker, and reverse proxy.
 
 Common small-server stack:
 
@@ -657,6 +721,9 @@ Use it when you really need orchestration across many servers.
 ```text
 nginx
 
+plain version:
+  traffic controller for your server
+
 public internet:
   https://app.com
   https://api.app.com
@@ -674,7 +741,7 @@ jobs:
 
 ### Text
 
-Nginx is commonly used as a web server and reverse proxy. It receives public traffic and forwards it to the right internal service.
+Nginx is commonly used as a web server and reverse proxy. For non-CS students, call it the front desk: it receives public traffic and forwards each request to the right internal service.
 
 Typical jobs:
 
@@ -754,6 +821,9 @@ Always check billing limits, alerts, auto-scaling, and unused resources. Cloud p
 ```text
 aws / azure / gcp
 
+plain version:
+  giant cloud platforms for serious scale
+
 pros:
   scalable
   managed databases
@@ -794,6 +864,9 @@ Do not use complex cloud just to look serious.
 
 ```text
 code != secrets
+
+plain version:
+  secrets are passwords for your app
 
 DATABASE_URL
 API_KEY
@@ -839,6 +912,9 @@ configure secrets
 
 ```text
 deploy broke?
+
+plain version:
+  first understand, then undo
 
 1. read logs
 2. identify failing version
@@ -892,6 +968,9 @@ demo target:
   one small feature
   one visible deploy
   one rollback explanation
+
+plain version:
+  show the safety process, not a big feature
 ```
 
 ### Text
