@@ -25,11 +25,11 @@
   --orange: #d65d0e;
   --orange-bright: #fe8019;
 
-  --text-xs: 0.72rem;
-  --text-sm: 0.86rem;
-  --text-md: 1rem;
-  --text-lg: 1.25rem;
-  --text-xl: 1.7rem;
-  --text-2xl: 2.45rem;
-  --text-3xl: 3.5rem;
+  --text-xs: 0.9rem;
+  --text-sm: 1.05rem;
+  --text-md: 1.18rem;
+  --text-lg: 1.45rem;
+  --text-xl: 1.95rem;
+  --text-2xl: 2.75rem;
+  --text-3xl: 3.9rem;
 }
