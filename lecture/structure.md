@@ -25,10 +25,15 @@ DevOps controls what code becomes real.
 ### Display
 
 ```text
-from vibe code
-to live product
+FROM VIBE CODE
+TO LIVE PRODUCT
 
-git -> ci -> deploy -> observe
+AI agent -> git -> ci -> deploy -> observe
+
+goal:
+  ship faster
+  break less
+  rollback when needed
 ```
 
 ### Text
@@ -42,13 +47,18 @@ This lecture is about the path from "AI generated my app" to "real users can use
 ### Display
 
 ```text
-AI made it work locally.
+local:
+  AI generated code
+  npm run dev works
+  demo looks fine
 
 production:
-  500
-  missing env
-  broken build
-  unknown version
+  missing env var
+  build command fails
+  database not connected
+  500 error
+  no logs checked
+  unknown deployed version
 ```
 
 ### Text
@@ -63,7 +73,14 @@ AI agents are very good at producing code, but production is not only code. Prod
 
 ```text
 AI = code generator
+
 you = release manager
+
+responsibilities:
+  accept / reject changes
+  run checks
+  deploy
+  rollback
 ```
 
 ### Text
@@ -77,12 +94,16 @@ Even if you do not manually write code, you still decide what is accepted, what 
 ### Display
 
 ```text
-edit
-  -> commit
-  -> test
-  -> build
-  -> deploy
-  -> logs
+devops pipeline:
+
+  edit
+    -> git commit
+    -> ci checks
+    -> build artifact
+    -> deploy
+    -> logs / metrics
+
+no pipeline = random shipping
 ```
 
 ### Text
@@ -96,11 +117,17 @@ DevOps is the repeatable process around shipping software. Git tracks the change
 ### Display
 
 ```text
-small prompt
-  -> diff
-  -> run checks
-  -> commit
-  -> deploy
+safe AI loop:
+
+  small prompt
+    -> inspect diff
+    -> run checks
+    -> commit checkpoint
+    -> deploy preview
+    -> merge / rollback
+
+anti-pattern:
+  "rewrite the whole app"
 ```
 
 ### Text
@@ -128,6 +155,10 @@ commit  = checkpoint
 branch  = experiment
 diff    = what changed
 revert  = undo safely
+
+$ git status
+$ git diff
+$ git commit -m "add login page"
 ```
 
 ### Text
@@ -153,7 +184,13 @@ git commit -m "add login page"
 main = stable
 branch = experiment
 
-never vibe directly on main
+$ git switch -c feature/login
+# AI edits here
+$ git diff
+$ git push origin feature/login
+
+rule:
+  never vibe directly on main
 ```
 
 ### Text
@@ -178,10 +215,15 @@ git commit -am "add login"
 ```text
 PR = inspection gate
 
-changed files
-checks
-preview
-merge
+PR shows:
+  changed files
+  CI result
+  comments / notes
+  preview URL
+
+merge only when:
+  diff understood
+  checks green
 ```
 
 ### Text
@@ -203,10 +245,16 @@ If the change matters, use a PR.
 ```text
 CI = robot checker
 
-install
-lint
-test
-build
+on every push / PR:
+  install dependencies
+  lint
+  test
+  build
+
+minimum:
+  npm ci
+  npm test
+  npm run build
 ```
 
 ### Text
@@ -234,10 +282,21 @@ Do not trust AI code until the build passes.
 ### Display
 
 ```yaml
-on: [pull_request, push]
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
 jobs:
   check:
     runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: npm ci
+      - run: npm test
+      - run: npm run build
 ```
 
 ### Text
@@ -273,11 +332,17 @@ Do not memorize YAML. Learn how to read the structure.
 ### Display
 
 ```text
-CI checks
-CD ships
+CI:
+  checks the change
 
-delivery    = human approves
-deployment  = automatic release
+CD:
+  ships the accepted change
+
+delivery:
+  human approves production
+
+deployment:
+  production release is automatic
 ```
 
 ### Text
@@ -298,14 +363,19 @@ manual production deploy when needed
 ### Display
 
 ```text
-deploy requires:
+deployment checklist:
 
-env
-build
-runtime
-domain
-logs
-rollback
+  build command
+  start command
+  runtime version
+  env variables
+  domain / DNS
+  logs
+  rollback path
+
+example:
+  npm run build
+  npm run start
 ```
 
 ### Text
@@ -331,10 +401,18 @@ How do I rollback?
 ```text
 static site
 
-build once
-serve files
+source code
+  -> build
+  -> static files
+  -> CDN
 
 html / css / js
+
+hosts:
+  github pages
+  cloudflare pages
+  netlify
+  vercel
 ```
 
 ### Text
@@ -388,10 +466,17 @@ static site = cheapest + simplest + fastest
 vercel
 
 best for:
-  frontend
-  next.js
-  static sites
+  next.js / react
+  frontend MVP
+  landing page
   preview deploys
+
+git push -> preview URL
+merge main -> production
+
+not ideal for:
+  long-running workers
+  custom server ops
 ```
 
 ### Text
@@ -430,6 +515,12 @@ best for:
   database
   full-stack mvp
   docker-ish apps
+
+decision:
+  frontend only      -> vercel
+  api + database     -> railway/render
+  cron/job/worker    -> railway/render
+  simple docker app  -> railway/render
 ```
 
 ### Text
@@ -456,8 +547,21 @@ For most incubator projects, Vercel, Railway, or Render is enough.
 ```text
 VPS = remote linux machine
 
-you control it
-you maintain it
+you get:
+  ssh access
+  root/admin control
+  fixed server
+
+you run:
+  app
+  db
+  docker
+  nginx
+
+you maintain:
+  updates
+  firewall
+  backups
 ```
 
 ### Text
@@ -494,11 +598,17 @@ uptime
 ```text
 docker compose
 
-app
-db
-redis
-worker
-nginx
+one server, many services:
+
+  app     -> :3000
+  api     -> :8000
+  db      -> postgres
+  redis   -> cache
+  worker  -> background jobs
+  nginx   -> public traffic
+
+tools:
+  compose / portainer / coolify
 ```
 
 ### Text
@@ -547,9 +657,19 @@ Use it when you really need orchestration across many servers.
 ```text
 nginx
 
-80 / 443
-  -> app:3000
-  -> api:8000
+public internet:
+  https://app.com
+  https://api.app.com
+
+nginx:
+  :80 / :443
+    -> app:3000
+    -> api:8000
+
+jobs:
+  reverse proxy
+  tls/https
+  domain routing
 ```
 
 ### Text
@@ -597,12 +717,20 @@ In many beginner platforms, Vercel/Railway/Render hide this layer. On a VPS, you
 ```text
 free credits:
 
-github education pack
-oracle
-azure
-google cloud
-aws
-digitalocean
+  github education pack
+  oracle cloud
+  microsoft azure
+  google cloud
+  amazon aws
+  digitalocean
+
+warning:
+  free credits != free forever
+
+check:
+  billing alerts
+  unused resources
+  auto-scaling
 ```
 
 ### Text
@@ -626,9 +754,18 @@ Always check billing limits, alerts, auto-scaling, and unused resources. Cloud p
 ```text
 aws / azure / gcp
 
-powerful
-scalable
-hard
+pros:
+  scalable
+  managed databases
+  advanced networking
+  enterprise services
+
+cons:
+  harder setup
+  billing complexity
+  more concepts
+
+use only when scale/business requires it
 ```
 
 ### Text
@@ -661,6 +798,16 @@ code != secrets
 DATABASE_URL
 API_KEY
 JWT_SECRET
+
+bad:
+  committed .env
+  hardcoded token
+
+good:
+  github secrets
+  vercel env vars
+  railway/render env
+  cloud secret manager
 ```
 
 ### Text
@@ -693,8 +840,16 @@ configure secrets
 ```text
 deploy broke?
 
-logs -> cause
-rollback -> recover
+1. read logs
+2. identify failing version
+3. rollback
+4. verify health
+
+rollback options:
+  redeploy previous version
+  revert commit
+  restore docker image
+  disable feature
 ```
 
 ### Text
@@ -726,9 +881,17 @@ If this breaks, how do I go back in 5 minutes?
 branch
   -> AI change
   -> diff
-  -> CI
+  -> commit
+  -> PR
+  -> CI green
+  -> merge
   -> deploy
   -> logs
+
+demo target:
+  one small feature
+  one visible deploy
+  one rollback explanation
 ```
 
 ### Text
@@ -764,6 +927,14 @@ before merge:
   secrets safe
   deploy target known
   rollback known
+
+before production:
+  env configured
+  logs visible
+  previous version available
+
+rule:
+  vibe code != vibe deploy
 ```
 
 ### Text
