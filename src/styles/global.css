@@ -1,0 +1,48 @@
+html,
+body,
+#root {
+  min-height: 100%;
+  margin: 0;
+  background: var(--bg0-hard);
+  color: var(--fg1);
+  font-family:
+    "JetBrains Mono",
+    "JetBrainsMono Nerd Font",
+    "IBM Plex Mono",
+    "Fira Code",
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    Consolas,
+    monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+button {
+  color: var(--fg1);
+}
+
+code,
+pre {
+  font: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+  }
+}
