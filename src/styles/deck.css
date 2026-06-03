@@ -215,24 +215,24 @@ p code,
 }
 
 .workflow-track {
+  --workflow-gap: clamp(18px, 2.8vw, 42px);
   position: relative;
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
   justify-self: start;
   align-self: start;
-  width: min(100%, 1180px);
+  width: 100%;
   max-width: 100%;
   margin: 0;
   padding: 8px 0 2px;
-  gap: 18px 28px;
+  gap: 18px var(--workflow-gap);
   list-style: none;
 }
 
 .workflow-step {
   position: relative;
   flex: 1 1 128px;
-  max-width: 190px;
   min-width: 118px;
   min-height: 78px;
   padding-top: 36px;
@@ -246,7 +246,7 @@ p code,
   position: absolute;
   top: 17px;
   left: 29px;
-  right: -28px;
+  right: calc(var(--workflow-gap) * -1);
   border-top: 1px solid rgba(168, 153, 132, 0.52);
 }
 
