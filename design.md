@@ -48,7 +48,7 @@ not intimidating
 
 ## Content Model
 
-Each slide in `lecture/structure.md` has:
+Each slide in `lecture/slides/*.md` has:
 
 ```text
 ## Slide N: Title
@@ -213,7 +213,7 @@ Each slide should feel like a buffer inside a development tool.
 Recommended frame:
 
 ```text
-┌ lecture/structure.md ─ slide 06/24 ─ main ───────────────┐
+┌ lecture/slides/06_git_is_a_time_machine.md ─ slide 06/24 ─ main ─────────────┐
 │                                                          │
 │  slide content                                            │
 │                                                          │
@@ -492,7 +492,7 @@ ServerMap
 
 Content/presentation separation:
 
-- `lecture/structure.md` is the content source.
+- `lecture/slides/*.md` is the content source.
 - `Display` becomes visible slide content.
 - `Text` becomes presenter notes.
 - Components should be reusable and driven by slide metadata where possible.
@@ -577,4 +577,3 @@ Deployment puts it online.
 Logs explain what happened.
 Rollback saves the release.
 ```
-

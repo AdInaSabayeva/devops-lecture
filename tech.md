@@ -19,7 +19,7 @@ CSS modules or plain scoped CSS
 
 Vite is the development and build tool. Rolldown is the intended bundler path for fast local iteration and production builds.
 
-The deck should feel like a guided terminal/editor session, matching the direction in `design.md`, while keeping the content structure from `lecture/structure.md`.
+The deck should feel like a guided terminal/editor session, matching the direction in `design.md`, while keeping the content structure from `lecture/slides/*.md`.
 
 Deployment direction:
 
@@ -33,7 +33,15 @@ The project should stay simple enough to build as static files, but the lecture 
 
 ## Content Model
 
-`lecture/structure.md` is the source of truth for slide content.
+`lecture/slides/*.md` is the source of truth for slide content.
+
+Each slide lives in its own file named with stable ordering plus a snake-case title:
+
+```text
+lecture/slides/01_title.md
+lecture/slides/02_the_real_problem.md
+lecture/slides/03_your_new_role.md
+```
 
 Each slide follows this shape:
 
@@ -59,8 +67,9 @@ Implementation rules:
 Recommended parsing flow:
 
 ```text
-lecture/structure.md
-  -> parse slides
+lecture/slides/*.md
+  -> import raw slide files
+  -> parse each slide
   -> normalize display/text/title/number
   -> attach template metadata
   -> render React deck
@@ -177,7 +186,11 @@ Technical expectations:
 Recommended Markdown import pattern:
 
 ```ts
-import lectureMarkdown from "../../lecture/structure.md?raw";
+const slideModules = import.meta.glob("../../lecture/slides/*.md", {
+  eager: true,
+  query: "?raw",
+  import: "default",
+});
 ```
 
 ## Styling System
@@ -322,7 +335,7 @@ Do not add Docker, Compose, Nginx, CI, or server provisioning files yet. Those s
 
 Before considering the deck implementation complete:
 
-- All 24 slides from `lecture/structure.md` render in order.
+- All 24 slides from `lecture/slides/*.md` render in order.
 - `Display` content is visible in the audience slide view.
 - `Text` content is available as presenter notes.
 - Slide count and slide numbers are correct.

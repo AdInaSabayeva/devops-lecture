@@ -17,6 +17,7 @@ export type ParsedSlide = {
   title: string;
   display: string;
   text: string;
+  sourcePath?: string;
 };
 
 export type Slide = ParsedSlide & {
@@ -44,6 +45,21 @@ export function parseLecture(markdown: string): ParsedSlide[] {
       text,
     };
   });
+}
+
+export function parseSlide(markdown: string, sourcePath?: string): ParsedSlide {
+  const match = [...markdown.matchAll(slideHeading)][0];
+  if (!match) {
+    throw new Error(`Missing slide heading in ${sourcePath ?? "markdown source"}`);
+  }
+
+  return {
+    number: Number(match[1]),
+    title: match[2].trim(),
+    display: sectionBody(markdown, "Display"),
+    text: sectionBody(markdown, "Text"),
+    sourcePath,
+  };
 }
 
 function sectionBody(block: string, section: "Display" | "Text") {

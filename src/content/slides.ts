@@ -1,5 +1,16 @@
-import lectureMarkdown from "../../lecture/structure.md?raw";
-import { parseLecture } from "./parseLecture";
+import { parseSlide } from "./parseLecture";
 import { attachTemplates } from "./slideTemplates";
 
-export const slides = attachTemplates(parseLecture(lectureMarkdown));
+const slideModules = import.meta.glob("../../lecture/slides/*.md", {
+  eager: true,
+  query: "?raw",
+  import: "default",
+}) as Record<string, string>;
+
+export const slides = attachTemplates(
+  Object.entries(slideModules)
+    .map(([sourcePath, markdown]) =>
+      parseSlide(markdown, sourcePath.replace("../../", "")),
+    )
+    .sort((left, right) => left.number - right.number),
+);
