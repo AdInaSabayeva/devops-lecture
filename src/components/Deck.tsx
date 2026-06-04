@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import type { Slide as SlideData } from "../content/parseLecture";
+import { DrawingOverlay } from "./DrawingOverlay";
 import { Slide } from "./Slide";
 
 type DeckProps = {
@@ -9,10 +10,13 @@ type DeckProps = {
 export function Deck({ slides }: DeckProps) {
   const [index, setIndex] = useState(() => readInitialIndex(slides.length));
   const [showNotes, setShowNotes] = useState(false);
+  const [isDrawingOpen, setIsDrawingOpen] = useState(false);
   const activeSlide = slides[index];
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
+      if (isDrawingOpen) return;
+
       if (event.key === "ArrowRight" || event.key === " " || event.key === "PageDown") {
         event.preventDefault();
         setIndex((current) => Math.min(current + 1, slides.length - 1));
@@ -30,7 +34,7 @@ export function Deck({ slides }: DeckProps) {
 
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [slides.length]);
+  }, [isDrawingOpen, slides.length]);
 
   useEffect(() => {
     const nextHash = `#${activeSlide.number}`;
@@ -82,7 +86,18 @@ export function Deck({ slides }: DeckProps) {
         >
           notes
         </button>
+        <button
+          type="button"
+          className={isDrawingOpen ? "active" : ""}
+          onClick={() => setIsDrawingOpen((value) => !value)}
+          aria-pressed={isDrawingOpen}
+          title="Toggle drawing board"
+        >
+          draw
+        </button>
       </nav>
+
+      {isDrawingOpen && <DrawingOverlay onClose={() => setIsDrawingOpen(false)} />}
     </main>
   );
 }
