@@ -1,0 +1,40 @@
+services:
+  nginx:
+    image: ${APP_IMAGE:?set APP_IMAGE, for example ghcr.io/owner/repo}:${APP_TAG:-main}
+    restart: unless-stopped
+    expose:
+      - "8080"
+    networks:
+      - web
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:8080/healthz"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
+
+  https-portal:
+    image: steveltn/https-portal:1
+    restart: unless-stopped
+    depends_on:
+      nginx:
+        condition: service_healthy
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      DOMAINS: ${DOMAINS:?set DOMAINS, for example example.com -> http://nginx:8080}
+      STAGE: ${HTTPS_PORTAL_STAGE:-production}
+      WEBSOCKET: "true"
+      CLIENT_MAX_BODY_SIZE: ${CLIENT_MAX_BODY_SIZE:-10M}
+    volumes:
+      - https-portal-data:/var/lib/https-portal
+    networks:
+      - web
+
+networks:
+  web:
+    driver: bridge
+
+volumes:
+  https-portal-data:
